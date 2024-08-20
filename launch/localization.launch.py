@@ -35,7 +35,7 @@ ARGUMENTS = [
 
 
 def generate_launch_description():
-    eureka_navigation_pkg = get_package_share_directory('turtlebot4_navigation')
+    eureka_navigation_pkg = get_package_share_directory('eureka_navigation')
     nav2_bringup_pkg = get_package_share_directory('nav2_bringup')
 
     localization_params_arg = DeclareLaunchArgument(
@@ -47,7 +47,7 @@ def generate_launch_description():
     map_arg = DeclareLaunchArgument(
         'map',
         default_value=PathJoinSubstitution(
-            [eureka_navigation_pkg, 'maps', 'warehouse.yaml']),
+            [eureka_navigation_pkg, 'maps', 'slam_toolbox.yaml']),
         description='Full path to map yaml file to load')
 
     namespace = LaunchConfiguration('namespace')
