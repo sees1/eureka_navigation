@@ -34,12 +34,11 @@ ARGUMENTS = [
     DeclareLaunchArgument('use_sim_time', default_value='true',
                           choices=['true', 'false'],
                           description='Use sim time'),
-    DeclareLaunchArgument('params_file',
-                          default_value=PathJoinSubstitution([
-                              get_package_share_directory('eureka_navigation'),
-                              'config',
-                              'nav2.yaml'
-                              ]),
+    DeclareLaunchArgument('params_file', default_value=PathJoinSubstitution([
+                                                        get_package_share_directory('eureka_navigation'),
+                                                        'config',
+                                                        'nav2.yaml'
+                                                        ]),
                           description='Nav2 parameters'),
     DeclareLaunchArgument('namespace', default_value='',
                           description='Robot namespace')
@@ -49,7 +48,7 @@ ARGUMENTS = [
 def launch_setup(context, *args, **kwargs):
     pkg_nav2_bringup = get_package_share_directory('nav2_bringup')
 
-    nav2_params = LaunchConfiguration('params_file')
+    nav2_params_str = LaunchConfiguration('params_file').perform(context)
     namespace = LaunchConfiguration('namespace')
     use_sim_time = LaunchConfiguration('use_sim_time')
 
@@ -69,7 +68,7 @@ def launch_setup(context, *args, **kwargs):
             PythonLaunchDescriptionSource(launch_nav2),
             launch_arguments=[
                   ('use_sim_time', use_sim_time),
-                  ('params_file', nav2_params.perform(context)),
+                  ('params_file', nav2_params_str),
                   ('use_composition', 'False'),
                   ('namespace', namespace_str)
                 ]
