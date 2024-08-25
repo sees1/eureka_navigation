@@ -31,7 +31,7 @@ def generate_launch_description():
     slam_params_arg = DeclareLaunchArgument(
         'params',
         default_value=PathJoinSubstitution(
-            [eureka_navigation_pkg, 'config', 'mapping.yaml']),
+            [eureka_navigation_pkg, 'config', 'slam.yaml']),
         description='Robot namespace')
 
     slam_params = RewrittenYaml(
