@@ -20,7 +20,7 @@ find_package(ament_cmake REQUIRED)
 find_package(ament_cmake_python REQUIRED)
 
 install(
-  DIRECTORY config launch maps
+  DIRECTORY config launch maps behaviours_tree
   DESTINATION share/${PROJECT_NAME}
 )
 
