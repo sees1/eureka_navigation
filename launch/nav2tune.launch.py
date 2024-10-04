@@ -14,7 +14,7 @@ from launch_ros.actions import PushRosNamespace, SetRemap, Node, SetParameter
 
 
 ARGUMENTS = [
-    DeclareLaunchArgument('use_sim_time', default_value='true',
+    DeclareLaunchArgument('use_sim_time', default_value='false',
                           choices=['true', 'false'],
                           description='Use sim time'),
     DeclareLaunchArgument('params_file', default_value=PathJoinSubstitution([
@@ -109,7 +109,7 @@ def launch_setup(context, *args, **kwargs):
         }],
         remappings=[
             ("/grid_prob_map", "/map"),
-            ("scan_cloud", "/camera/points")
+            ("scan_cloud", "/camera/camera/depth/color/points")
         ],
         arguments=["--delete_db_on_start"],
     )
@@ -124,7 +124,7 @@ def launch_setup(context, *args, **kwargs):
             'map_frame_id' : 'map'
         }],
         remappings=[
-            ('/cloud', '/camera/points')
+            ('/cloud', '/camera/camera/depth/color/points')
         ]
     )
 
