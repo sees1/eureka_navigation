@@ -14,7 +14,7 @@ from launch_ros.actions import PushRosNamespace, SetRemap, Node, SetParameter
 
 
 ARGUMENTS = [
-    DeclareLaunchArgument('use_sim_time', default_value='true',
+    DeclareLaunchArgument('use_sim_time', default_value='false',
                           choices=['true', 'false'],
                           description='Use sim time'),
     DeclareLaunchArgument('params_file', default_value=PathJoinSubstitution([
@@ -46,6 +46,8 @@ def launch_setup(context, *args, **kwargs):
         PushRosNamespace(namespace),
         SetRemap(namespace_str + '/global_costmap/scan', namespace_str + '/scan'),
         SetRemap(namespace_str + '/local_costmap/scan', namespace_str + '/scan'),
+        SetRemap(namespace_str + '/cmd_vel', namespace_str + '/custom_cmd_vel'),
+
 
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(launch_nav2),
@@ -137,10 +139,10 @@ def launch_setup(context, *args, **kwargs):
             output="log",
             parameters=rgbd_parameters,
             remappings=[
-                ("rgb/image", "/camera/image_raw"),
-                ("rgb/camera_info", "/camera/camera_info"),
-                ("depth/image", "/camera/depth/image_raw"),
-                ("imu", "/imu"),
+                ("rgb/image", "camera/camera/color/image_raw"),
+                ("rgb/camera_info", "camera/camera/color/camera_info"),
+                ("depth/image", "camera/camera/depth/image_rect_raw"),
+                ("imu", "camera/camera/imu"),
                 ("odom", "odom_rgbd")
             ],
             arguments=["--ros-args", "--log-level", "Error"]
@@ -180,9 +182,9 @@ def launch_setup(context, *args, **kwargs):
             "qos_image": 2,
             "qos_scan": 2,
             "qos_odom": 1,
-            "qos_camera_info": 2,
-            "qos_imu": 2,
-            "qos_gps": 1,
+            "qos_camera_info": 1,
+            "qos_imu": 0,
+            "qos_gps": 0,
             "qos_user_data": 1,
             "scan_normal_k": 0,
             "landmark_linear_variance": 0.0001,
@@ -200,10 +202,10 @@ def launch_setup(context, *args, **kwargs):
         }],
         remappings=[
             ("/grid_prob_map", "/map"),
-            ("scan_cloud", "/camera/points"),
-            ("rgb/image", "/camera/image_raw"),
-            ("rgb/camera_info", "/camera/camera_info"),
-            ("depth/image", "/camera/depth/image_raw")
+            ("rgb/image", "camera/camera/color/image_raw"),
+            ("rgb/camera_info", "camera/camera/color/camera_info"),
+            ("depth/image", "camera/camera/depth/image_rect_raw"),
+            ("scan_cloud", "/camera/camera/depth/color/points")
         ],
         arguments=["--delete_db_on_start"],
     )

@@ -11,7 +11,7 @@ from nav2_common.launch import RewrittenYaml
 
 
 ARGUMENTS = [
-    DeclareLaunchArgument('use_sim_time', default_value='true',
+    DeclareLaunchArgument('use_sim_time', default_value='false',
                           choices=['true', 'false'],
                           description='Use sim time'),
     DeclareLaunchArgument('sync', default_value='false',
