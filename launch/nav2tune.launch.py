@@ -100,7 +100,12 @@ def launch_setup(context, *args, **kwargs):
             "landmark_linear_variance": 0.0001,
             "landmark_angular_variance": 0.9999,
             "Mem/IncrementalMemory": "true",
-            "Mem/InitWMWithAllNodes": "false"
+            "Mem/InitWMWithAllNodes": "false",
+            "Optimizer/Strategy" : "2",
+            "Icp/Epsilon": "0.01",
+            # "RGBD/ProximityPathMaxNeighbors": "0",
+            "Optimizer/Robust" : "true",
+            # "Optimizer/Strategy": "1"
         }],
         remappings=[
             ("/grid_prob_map", "/map"),
@@ -125,7 +130,7 @@ def launch_setup(context, *args, **kwargs):
 
     return [nav2,
             SetParameter(name='use_sim_time', value=True),
-            rtabmap_slam,
+            rtabmap_slam
             # obstacle_detection
     ]
 
