@@ -1,6 +1,6 @@
 bt_navigator:
   ros__parameters:
-    use_sim_time: True
+    use_sim_time: False 
     global_frame: map
     robot_base_frame: base_link
     odom_topic: odom
@@ -62,11 +62,11 @@ bt_navigator:
 
 bt_navigator_navigate_through_poses_rclcpp_node:
   ros__parameters:
-    use_sim_time: True
+    use_sim_time: False 
 
 bt_navigator_navigate_to_pose_rclcpp_node:
   ros__parameters:
-    use_sim_time: True
+    use_sim_time: False 
 
 controller_server:
   ros__parameters:
@@ -133,7 +133,7 @@ controller_server:
         collision_cost: 10000.0
         collision_margin_distance: 0.5
         near_goal_distance: 0.2
-        inflation_radius: 0.6 # (only in Humble)
+        inflation_radius: 0.3 # (only in Humble) changing
         cost_scaling_factor: 10.0 # (only in Humble)
       CostCritic:
         enabled: false
@@ -183,7 +183,7 @@ local_costmap:
       publish_frequency: 2.0
       global_frame: odom
       robot_base_frame: base_link
-      use_sim_time: True
+      use_sim_time: False 
       track_unknown_space: False
       rolling_window: true
       width: 7
@@ -200,7 +200,7 @@ local_costmap:
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 10.0
-        inflation_radius: 0.6
+        inflation_radius: 0.3 #changing
       always_send_full_costmap: False
 
 global_costmap:
@@ -210,7 +210,7 @@ global_costmap:
       publish_frequency: 10.0
       global_frame: map
       robot_base_frame: base_link
-      use_sim_time: True
+      use_sim_time: False 
       rolling_window: true
       footprint: "[[0.47, 0.4],[0.47, -0.4],[-0.47, -0.4],[-0.47, 0.4]]"
       resolution: 0.06
@@ -266,13 +266,13 @@ global_costmap:
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 10.0
-        inflation_radius: 0.5
+        inflation_radius: 0.2 #changing
       always_send_full_costmap: False
 
 planner_server:
   ros__parameters:
     expected_planner_frequency: 2.0
-    use_sim_time: True
+    use_sim_time: False 
     planner_plugins: ["GridBased"]
     GridBased:
       plugin: "nav2_smac_planner/SmacPlannerHybrid"
@@ -291,7 +291,7 @@ planner_server:
       analytic_expansion_max_length: 3.0  # For Hybrid/Lattice nodes: The maximum length of the analytic expansion to be considered valid to prevent unsafe shortcutting (in meters). This should be scaled with minimum turning radius and be no less than 4-5x the minimum radius
       analytic_expansion_max_cost: true   # For Hybrid/Lattice nodes: The maximum single cost for any part of an analytic expansion to contain and be valid (except when necessary on approach to goal)
       analytic_expansion_max_cost_override: false  #  For Hybrid/Lattice nodes: Whether or not to override the maximum cost setting if within critical distance to goal (ie probably required)
-      minimum_turning_radius: 0.35        # For Hybrid/Lattice nodes: minimum turning radius in m of path / vehicle
+      minimum_turning_radius: 0.6        # For Hybrid/Lattice nodes: minimum turning radius in m of path / vehicle changing
       reverse_penalty: 0.3               # For Reeds-Shepp model: penalty to apply if motion is reversing, must be => 1
       change_penalty: 0.0                 # For Hybrid nodes: penalty to apply if motion is changing directions, must be >= 0
       non_straight_penalty: 1.20          # For Hybrid nodes: penalty to apply if motion is non-straight, must be => 1
@@ -309,7 +309,7 @@ planner_server:
 
 smoother_server:
   ros__parameters:
-    use_sim_time: True
+    use_sim_time: False 
     smoother_plugins: ["simple_smoother"]
     simple_smoother:
       plugin: "nav2_smoother::SimpleSmoother"
@@ -334,7 +334,7 @@ behavior_server:
     global_frame: odom
     robot_base_frame: base_link
     transform_tolerance: 0.1
-    use_sim_time: true
+    use_sim_time: False 
     simulate_ahead_time: 2.0
     max_rotational_vel: 1.0
     min_rotational_vel: 0.4
@@ -342,11 +342,11 @@ behavior_server:
 
 robot_state_publisher:
   ros__parameters:
-    use_sim_time: True
+    use_sim_time: False 
 
 waypoint_follower:
   ros__parameters:
-    use_sim_time: True
+    use_sim_time: False 
     loop_rate: 20
     stop_on_failure: false
     waypoint_task_executor_plugin: "wait_at_waypoint"
@@ -357,12 +357,12 @@ waypoint_follower:
 
 velocity_smoother:
   ros__parameters:
-    use_sim_time: True
+    use_sim_time: False 
     smoothing_frequency: 20.0
     scale_velocities: False
     feedback: "OPEN_LOOP"
-    max_velocity: [0.26, 0.0, 1.0]
-    min_velocity: [-0.26, 0.0, -1.0]
+    max_velocity: [0.41, 0.0, 0.7]
+    min_velocity: [-0.41, -0.1, -0.7]
     max_accel: [2.5, 0.0, 3.2]
     max_decel: [-2.5, 0.0, -3.2]
     odom_topic: "odom"

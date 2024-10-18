@@ -46,6 +46,8 @@ def launch_setup(context, *args, **kwargs):
         PushRosNamespace(namespace),
         SetRemap(namespace_str + '/global_costmap/scan', namespace_str + '/scan'),
         SetRemap(namespace_str + '/local_costmap/scan', namespace_str + '/scan'),
+        SetRemap(namespace_str + '/cmd_vel', namespace_str + '/custom_cmd_vel'),
+
 
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(launch_nav2),
@@ -93,8 +95,8 @@ def launch_setup(context, *args, **kwargs):
             "qos_scan": 2,
             "qos_odom": 1,
             "qos_camera_info": 1,
-            "qos_imu": 2,
-            "qos_gps": 1,
+            "qos_imu": 0,
+            "qos_gps": 0,
             "qos_user_data": 1,
             "scan_normal_k": 0,
             "landmark_linear_variance": 0.0001,
@@ -129,7 +131,7 @@ def launch_setup(context, *args, **kwargs):
     )
 
     return [nav2,
-            SetParameter(name='use_sim_time', value=True),
+            SetParameter(name='use_sim_time', value=False),
             rtabmap_slam
             # obstacle_detection
     ]
