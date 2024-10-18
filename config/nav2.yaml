@@ -103,7 +103,7 @@ controller_server:
         trajectory_step: 50
         time_step: 3
       AckermannConstraints:
-        min_turning_r: 0.35
+        min_turning_r: 0.6
       critics: ["ConstraintCritic", "CostCritic", "GoalCritic", "ObstaclesCritic", "GoalAngleCritic", "PathAlignCritic", "PathFollowCritic", "PathAngleCritic", "PreferForwardCritic"]
       ConstraintCritic:
         enabled: true
