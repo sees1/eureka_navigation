@@ -104,6 +104,9 @@ def launch_setup(context, *args, **kwargs):
             "Optimizer/Strategy" : "2",
             "Icp/Epsilon": "0.01",
             # "RGBD/ProximityPathMaxNeighbors": "0",
+            "RGBD/OptimizeStrategy": "2",
+            "RGBD/OptimizeRobust": "true",
+            "RGBD/OptimizeMaxError": "0",
             "Optimizer/Robust" : "true",
             # "Optimizer/Strategy": "1"
         }],
@@ -114,24 +117,9 @@ def launch_setup(context, *args, **kwargs):
         arguments=["--delete_db_on_start"],
     )
 
-    obstacle_detection = Node(
-        package='rtabmap_util',
-        executable='obstacles_detection',
-        name='obstacle_detection',
-        output='screen',
-        parameters=[{
-            'frame_id' : 'base_link',
-            'map_frame_id' : 'map'
-        }],
-        remappings=[
-            ('/cloud', '/camera/points')
-        ]
-    )
-
     return [nav2,
             SetParameter(name='use_sim_time', value=True),
             rtabmap_slam
-            # obstacle_detection
     ]
 
 
