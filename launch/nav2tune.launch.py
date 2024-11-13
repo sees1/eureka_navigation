@@ -142,7 +142,7 @@ def launch_setup(context, *args, **kwargs):
                 ("rgb/image", "camera/camera/color/image_raw"),
                 ("rgb/camera_info", "camera/camera/color/camera_info"),
                 ("depth/image", "camera/camera/depth/image_rect_raw"),
-                ("imu", "camera/camera/imu"),
+                ("imu", "imu/data"),
                 ("odom", "odom_rgbd")
             ],
             arguments=["--ros-args", "--log-level", "Error"]
