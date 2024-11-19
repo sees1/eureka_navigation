@@ -70,23 +70,23 @@ bt_navigator_navigate_to_pose_rclcpp_node:
 
 controller_server:
   ros__parameters:
-    controller_frequency: 15.0
+    controller_frequency: 10.0
     FollowPath:
       plugin: "nav2_mppi_controller::MPPIController"
       time_steps: 56
-      model_dt: 0.07
+      model_dt: 0.1
       batch_size: 2000
       vx_std: 0.2
       vy_std: 0.0
-      wz_std: 0.4
+      wz_std: 0.2
       vx_max: 0.5
       vx_min: -0.5
       vy_max: 0.0
       wz_max: 1.9
-      ax_max: 3.0
-      ax_min: -3.0
+      ax_max: 0.3
+      ax_min: -0.3
       ay_max: 0.0
-      az_max: 3.5
+      az_max: 0.0
       iteration_count: 1
       prune_distance: 2.0
       enforce_path_inversion: True
@@ -292,7 +292,7 @@ planner_server:
       analytic_expansion_max_cost: true   # For Hybrid/Lattice nodes: The maximum single cost for any part of an analytic expansion to contain and be valid (except when necessary on approach to goal)
       analytic_expansion_max_cost_override: false  #  For Hybrid/Lattice nodes: Whether or not to override the maximum cost setting if within critical distance to goal (ie probably required)
       minimum_turning_radius: 0.3        # For Hybrid/Lattice nodes: minimum turning radius in m of path / vehicle
-      reverse_penalty: 0.3               # For Reeds-Shepp model: penalty to apply if motion is reversing, must be => 1
+      reverse_penalty: 1.3               # For Reeds-Shepp model: penalty to apply if motion is reversing, must be => 1
       change_penalty: 0.0                 # For Hybrid nodes: penalty to apply if motion is changing directions, must be >= 0
       non_straight_penalty: 1.10          # For Hybrid nodes: penalty to apply if motion is non-straight, must be => 1
       cost_penalty: 6.3                   # For Hybrid nodes: penalty to apply to higher cost areas when adding into the obstacle map dynamic programming distance expansion heuristic. This drives the robot more towards the center of passages. A value between 1.3 - 3.5 is reasonable.
@@ -321,7 +321,7 @@ behavior_server:
   ros__parameters:
     costmap_topic: local_costmap/costmap_raw
     footprint_topic: local_costmap/published_footprint
-    cycle_frequency: 10.0
+    cycle_frequency: 1.0
     behavior_plugins: [ "backup", "drive_on_heading", "assisted_teleop", "wait"]
     backup:
       plugin: "nav2_behaviors/BackUp"
@@ -347,7 +347,7 @@ robot_state_publisher:
 waypoint_follower:
   ros__parameters:
     use_sim_time: True
-    loop_rate: 20
+    loop_rate: 10
     stop_on_failure: false
     waypoint_task_executor_plugin: "wait_at_waypoint"
     wait_at_waypoint:
